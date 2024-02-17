@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>The Diet</title>
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" type="image/png" href="https://i.ibb.co/SrKyd4V/favicon.png">
+    <style>
+    div {
+      margin-top: 4em;
+      margin-left: 18em;
+      margin-right: 18em;
+      text-align: justify;
+    }
+    @media screen and (max-width: 480px) {
+    div {
+      margin-top: 1em;
+      margin-left: 0em;
+      margin-right: 0em;
+      text-align: justify;
+    }
+    </style>
+  </head>
+  <body>
+    <div>
+<!--        <h1 align="center">The Diet 🍎</h1>*\-->
+
+    {% for group, feeds in data %}
+    <h2>{{ group }}</h2>
+    {% for feed in feeds %}
+    <details>
+      <summary>
+        <span class="feed-title">{{ feed.title }}</span> <br>
+        <span class="feed-url" text-align: justify>({{ feed.feed }})</span>
+      </summary>
+      <ul>
+        {% for item in feed.items %}
+        <li>
+          {{ item.timestamp | formatDate }} •
+          <a
+            href="{{ item.link }}"
+            target="_blank"
+            rel="noopener norefferer nofollow"
+            >{{ item.title }}</a
+          >
+        </li>
+        {% endfor %}
+      </ul>
+    </details>
+    {% endfor %} {% endfor %} {% if errors | length > 0 %}
+    <h2>Errors</h2>
+    <p>There were errors trying to parse these feeds:</p>
+    <ul>
+      {% for error in errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <br />
+    <hr />
+    <p>Last updated {{ now }}.</p>
+    </div>
+  </body>
+</html>
